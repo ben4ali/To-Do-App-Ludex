@@ -1,38 +1,180 @@
-.App {
-  text-align: center;
+
+/* SIDEBAR STYLE */
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 15rem;
+    background-color: var(--secondary-color);
+    padding: 1.5rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar p, .sidebar h1, .sidebar h3{
+    margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sidebar h1{
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.sb-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.add-task{
+    display: flex;
+    color: var(--text-color);
+    justify-content: center;
+    align-items: center;
+    background-color: var(--highlight-color);
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--default-transition);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-task i{
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+.add-task:hover{
+    background-color: var(--high-highlight-color);
+}
+.add-task:hover .add-task i{
+    opacity: 1;
+}
+
+.nav-links{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nav-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-header h3{
+    font-weight: 450;
+    font-size: 16px;
+}
+
+.nav-header i{
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--default-transition);
+    color: var(--text-transparent);
+}
+
+.active{
+    color: var(--text-color) !important;
+}
+
+.nav-header i:hover{
+    color: var(--text-color);
+}
+
+.nav-links ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    border-left: 2px solid var(--highlight-color);
+    position: relative;
+}
+
+.nav-links ul li::before{
+    content: '';
+    width: 0.9rem;
+    height: 0.15rem;
+    border-radius: 2px;
+    transform: translateY(500%) translateX(-350%);
+    background-color: var(--highlight-color);
+    display: inline-block;
+    margin-right: 1rem;
+    transition: var(--default-transition);
+    position: absolute;
+}
+
+.nav-links ul li{
+    cursor: pointer;
+    color: var(--text-transparent);
+    transition: var(--default-transition);
+    margin-left: 2rem;
+    width: fit-content;
+    padding-inline: 1rem;
+    padding-block: 0.15rem;
+    border-radius: 50px;
+}
+
+.selectedLink{
+    background-color: var(--highlight-color);
+    color: var(--text-color) !important;
+}
+
+/* THEME TOGGLE STYLE */
+.theme-switch{
+   margin-top: auto;
+   width: 100%;
+}
+
+.theme-toggle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: var(--default-transition);
+}
+
+.theme-holder{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    height: 2.5rem;
+    border-radius: 50px;
+    background-color: var(--background-color);
+    justify-content: center;
+}
+
+.selectedTheme{
+    background-color: var(--high-highlight-color);
+    color: var(--text-color) !important;
+
+    border-radius: 50px;
+
+}
+
+.theme{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 46%;
+    gap: 0.25rem;
+    color: var(--text-transparent);
+    cursor: pointer;
+    height: 85%;
+    transition: var(--default-transition);
+}
+
+.theme:hover{
+    color: var(--text-color);
+    background-color: var(--high-highlight-color);
+    color: var(--text-color) !important;
+
+    border-radius: 50px;
 }
