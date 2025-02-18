@@ -1,3 +1,12 @@
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: var(--default-transition);
+}
+
 
 /* SIDEBAR STYLE */
 .sidebar{
@@ -177,4 +186,143 @@
     color: var(--text-color) !important;
 
     border-radius: 50px;
+}
+
+
+/* CONTENT STYLE */
+
+.content-holder{
+    width: 79vw;
+    height: 93vh;
+    align-self: center;
+    justify-self: center;
+    margin: 0 auto;
+
+}
+
+/* CONTENT HEADER STYLE */
+.content-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.content-header h2{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.date-holder{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/*PAGE NAVIGATION STYLE */
+.page-navbar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    height: 1.2rem;
+    border-bottom: 3px solid var(--secondary-color);
+    justify-content: space-between;
+}
+
+.page-links{
+    position: absolute;
+    display: flex;
+    left: 0;
+    bottom: 0%;
+}
+
+
+.page-links a{
+    color: var(--text-transparent);
+    cursor: pointer;
+    transition: var(--default-transition);
+    text-decoration: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    border-bottom: 3px solid rgb(255,255,255,0);
+    width: 10rem;
+    padding-bottom: 1.1rem;
+    padding-left: 1.5rem;
+}
+
+#add-task-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    background-color: var(--high-highlight-color);
+    transition: var(--default-transition);
+ 
+}
+
+.selected-page-link{
+    color: var(--text-color) !important;
+    border-bottom: 1px solid var(--selected-color) !important;
+}
+
+.page-search-options{
+    display: flex;
+    justify-self: end;
+    gap: 1rem;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 0.75rem;
+}
+
+.page-search-options a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.search-container{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-container a{
+    transform: translate(190%);
+    z-index: 2;
+}
+.search-container input{
+    border: none;
+    outline: none;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    height: 2rem;
+    padding-inline: 1rem;
+    padding-left: 2.5rem;
+}
+
+#new-task{
+    width: 8rem;
+    height: 2.1rem;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--accent-color);
+    transition: var(--default-transition);
+    margin: 0;
+    padding: 0;
+    color: rgb(255,255,255,1);
+}
+
+#new-task:hover{
+    filter: brightness(1.7);
+
 }
