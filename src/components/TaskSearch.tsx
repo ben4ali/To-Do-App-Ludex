@@ -5,9 +5,10 @@ import { getTasks, Task } from '../utils/localStorage';
 interface TaskSearchProps {
     searchTerm: string;
     taskStatus?: string;
+    onDelete: (taskId: string) => void;
 }
 
-export const TaskSearch = ({ searchTerm, taskStatus }: TaskSearchProps) => {
+export const TaskSearch = ({ searchTerm, taskStatus, onDelete }: TaskSearchProps) => {
     const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
 
     useEffect(() => {
@@ -29,6 +30,7 @@ export const TaskSearch = ({ searchTerm, taskStatus }: TaskSearchProps) => {
                     description={task.description}
                     status={task.status}
                     date={task.date}
+                    onDelete={onDelete}
                 />
             ))}
         </div>

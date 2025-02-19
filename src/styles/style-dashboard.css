@@ -235,4 +235,5 @@
     gap: 1rem;
     padding-inline: 1rem;
     margin-bottom: 0.5rem;
+    overflow-y: scroll;
 }

@@ -31,7 +31,7 @@ body.light-mode {
   --accent-color: rgb(0, 30, 179);
   --highlight-color: rgb(226, 221, 221);
   --high-highlight-color: rgb(202, 202, 214);
-  --text-transparent: rgba(54, 58, 57, 0.5);
+  --text-transparent: rgba(54, 58, 57, 0.8);
   --selected-color: rgb(0,0,0);
   --task-list-color: rgb(247, 248, 255);
   --task-color: rgba(110, 129, 182, 0.1);

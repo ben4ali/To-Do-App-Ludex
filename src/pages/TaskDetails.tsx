@@ -3,7 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { addTask, updateTask, getTaskById, Task } from '../utils/localStorage';
 import '../styles/style-task-details.css';
 
-export const TaskDetails = () => {
+interface TaskDetailsProps {
+    onTaskAdd: (newTask: Task) => void;
+    onTaskUpdate?: (updatedTask: Task) => void;
+}
+
+export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
     const { taskId } = useParams<{ taskId: string }>();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
@@ -42,8 +47,12 @@ export const TaskDetails = () => {
 
         if (taskId) {
             updateTask(task);
+            if (onTaskUpdate) {
+                onTaskUpdate(task);
+            }
         } else {
             addTask(task);
+            onTaskAdd(task);
         }
 
         navigate('/');

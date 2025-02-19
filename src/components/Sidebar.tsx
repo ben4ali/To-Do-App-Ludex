@@ -1,12 +1,19 @@
 import { ThemeToggle } from "./ThemeToggle";
 import { DisplayLinks, selectLink } from '../animations/ToggleLinks';
 import { Link } from 'react-router-dom';
+import { Task } from '../utils/localStorage';
 
 interface SidebarProps {
   onStatusChange: (status: string) => void;
+  tasks: Task[];
 }
 
-export const Sidebar = ({ onStatusChange }: SidebarProps) => {
+export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
+  const allTasksCount = tasks.length;
+  const toDoCount = tasks.filter(task => task.status === 'To do').length;
+  const inProgressCount = tasks.filter(task => task.status === 'In progress').length;
+  const doneCount = tasks.filter(task => task.status === 'Done').length;
+
   const handleStatusChange = (status: string, e: any) => {
     onStatusChange(status);
     selectLink(e);
@@ -26,10 +33,18 @@ export const Sidebar = ({ onStatusChange }: SidebarProps) => {
           <i id="link-btn" className="bi bi-chevron-down active" onClick={DisplayLinks}></i>
         </div>
         <div id="links">
-          <Link to="/" onClick={(e) => handleStatusChange('All tasks', e)} className="selectedLink link">All tasks</Link>
-          <Link to="/" onClick={(e) => handleStatusChange('To do', e)} className="link">To do</Link>
-          <Link to="/" onClick={(e) => handleStatusChange('In progress', e)} className="link">In progress</Link>
-          <Link to="/" onClick={(e) => handleStatusChange('Done', e)} className="link">Done</Link>
+          <Link to="/" onClick={(e) => handleStatusChange('All tasks', e)} className="selectedLink link">
+            All tasks ({allTasksCount})
+          </Link>
+          <Link to="/" onClick={(e) => handleStatusChange('To do', e)} className="link">
+            To do ({toDoCount})
+          </Link>
+          <Link to="/" onClick={(e) => handleStatusChange('In progress', e)} className="link">
+            In progress ({inProgressCount})
+          </Link>
+          <Link to="/" onClick={(e) => handleStatusChange('Done', e)} className="link">
+            Done ({doneCount})
+          </Link>
         </div>
       </div>
       <div className="theme-switch">

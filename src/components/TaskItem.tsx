@@ -8,14 +8,15 @@ interface TaskItemProps {
     description: string;
     status: string;
     date: string;
+    onDelete: (taskId: string) => void;
 }
 
-export const TaskItem = ({ id, title, description, status, date }: TaskItemProps) => {
+export const TaskItem = ({ id, title, description, status, date, onDelete }: TaskItemProps) => {
     const navigate = useNavigate();
 
     const handleDelete = () => {
         deleteTask(id);
-        window.location.reload();
+        onDelete(id);
     };
 
     const handleEdit = () => {
@@ -23,7 +24,7 @@ export const TaskItem = ({ id, title, description, status, date }: TaskItemProps
     };
 
     return (
-        <div className="task-item">
+        <div className="task-item" data-id={id}>
             <div className="task-header">
                 <div className="task-info">
                     <h6>{title}</h6>
