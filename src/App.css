@@ -16,6 +16,7 @@
     width: 15rem;
     background-color: var(--secondary-color);
     padding: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar p, .sidebar h1, .sidebar h3{
@@ -291,7 +292,7 @@
     position: relative;
 }
 
-.search-container a{
+.search-container span{
     transform: translate(190%);
     z-index: 2;
 }

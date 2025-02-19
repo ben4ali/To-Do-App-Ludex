@@ -28,9 +28,9 @@ export const Navbar = () => {
                 <a href="#">Filter</a>
                 <a href="#">Sort</a>
                 <div className="search-container">
-                    <a id="search" href="#">
+                    <span id="search">
                         <i className="bi bi-search"></i>
-                    </a>
+                    </span>
                     <input type="text" placeholder="Search a task"></input>
                 </div>
                 <Link id="new-task" to='/task-details'>
