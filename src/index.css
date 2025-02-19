@@ -15,6 +15,7 @@
   --task-list-color: rgb(24, 25, 29);
   --task-color: rgba(226, 228, 250, 0.1);
   --task-highlight-color: rgb(56, 59, 68);
+  --error-color: rgb(165, 72, 72);
 
   --brightness: 1.5;
 
@@ -35,6 +36,7 @@ body.light-mode {
   --task-list-color: rgb(247, 248, 255);
   --task-color: rgba(110, 129, 182, 0.1);
   --task-highlight-color: rgba(199, 211, 240, 0.616);
+  --error-color: rgb(221, 59, 59);
 
   --brightness: 0.9;
 }

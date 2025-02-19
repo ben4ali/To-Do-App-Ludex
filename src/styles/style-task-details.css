@@ -117,3 +117,8 @@
     filter: brightness(var(--brightness));
 }
 
+.error{
+    color: var(--error-color);
+    font-size: 18px;
+    text-align: center;
+}

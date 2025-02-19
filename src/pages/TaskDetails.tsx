@@ -7,10 +7,16 @@ export const TaskDetails = () => {
     const [taskDescription, setTaskDescription] = useState('');
     const [taskStatus, setTaskStatus] = useState('To do');
     const [taskDueDate, setTaskDueDate] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!taskName || !taskDescription) {
+            setError('Task name and description must not be empty');
+            return;
+        }
+        setError('');
         navigate('/');
     };
 
@@ -33,6 +39,7 @@ export const TaskDetails = () => {
             <div className='task-form'>
                 <h3>Task creation</h3>
                 <form onSubmit={handleSubmit}>
+                    {error && <p className="error">{error}</p>}
                     <div className='input-group'>
                         <label htmlFor="input-name">Task name</label>
                         <input
