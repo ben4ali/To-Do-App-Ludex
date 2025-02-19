@@ -5,18 +5,37 @@ import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { TaskDetails } from './pages/TaskDetails';
+import { useState } from 'react';
 
 function App() {
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('All tasks');
+
+  const handleSearchChange = (term: string) => {
+    if (term.trim() === '') {
+      setIsSearching(false);
+      setSearchTerm('');
+    } else {
+      setSearchTerm(term);
+      setIsSearching(true);
+    }
+  };
+
+  const handleStatusChange = (status: string) => {
+    setSelectedStatus(status);
+  };
+
   return (
     <Router>
       <div className="App">
-        <Sidebar />
+        <Sidebar onStatusChange={handleStatusChange} />
         <div className='content-holder'>
           <ContentHeader />
-          <Navbar />
+          <Navbar onSearchChange={handleSearchChange} />
           <div className='pages'>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} />} />
               <Route path="/task-details" element={<TaskDetails />} />
             </Routes>
           </div>
