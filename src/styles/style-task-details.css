@@ -1,6 +1,6 @@
-.dashboard{
+.task-details{
     height: 100%;
     width: 100%;
     display: flex;
-    background-color: red;
+    background-color: rgb(0, 255, 115);
 }

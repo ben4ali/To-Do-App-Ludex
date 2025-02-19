@@ -20,7 +20,7 @@ export const DisplayLinks = () => {
 };
 
 export const selectLink = (e: any) => {
-    const links = document.querySelectorAll('.nav-links ul li');
+    const links = document.querySelectorAll('.link');
 
     links.forEach(link => {
         link.classList.remove('selectedLink');

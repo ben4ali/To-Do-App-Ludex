@@ -1,35 +1,42 @@
+import { Link, useLocation } from 'react-router-dom';
 import { selectPage } from "../animations/TogglePageLink";
 
 export const Navbar = () => {
+    const location = useLocation();
+
     return (
         <div className='page-navbar'>
-
             <div className="page-links">
-                <a onClick={selectPage} className="selected-page-link" href='#'>
+                <Link 
+                    onClick={selectPage} 
+                    className={location.pathname === '/' ? 'selected-page-link' : ''} 
+                    to='/'
+                >
                     <i className="bi bi-columns-gap"></i>
                     Task board
-                </a>
-                <a onClick={selectPage} href='#'>
+                </Link>
+                <Link 
+                    onClick={selectPage} 
+                    className={location.pathname === '/task-details' ? 'selected-page-link' : ''} 
+                    to='/task-details'
+                >
                     <i id="add-task-page" className="bi bi-plus"></i>
                     Add task
-                </a>
+                </Link>
             </div>
-
             <div className="page-search-options">
                 <a href="#">Filter</a>
                 <a href="#">Sort</a>
                 <div className="search-container">
-                    <a id="search"href="#">
+                    <a id="search" href="#">
                         <i className="bi bi-search"></i>
                     </a>
                     <input type="text" placeholder="Search a task"></input>
                 </div>
-              
-                <a id="new-task" href="#">
+                <Link id="new-task" to='/task-details'>
                     New Task
-                </a>
+                </Link>
             </div>
-
         </div>
     );
 };
