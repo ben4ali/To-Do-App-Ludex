@@ -19,6 +19,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 
 .sidebar p, .sidebar h1, .sidebar h3{
@@ -348,4 +349,105 @@
 #new-task:hover{
     filter: brightness(1.7);
 
+}
+
+
+/*MEDIA QUERIES */
+@media screen and (max-width: 1080px){
+    .content-holder{
+        width: 100vw;
+    }
+    .sidebar{
+      position: fixed;
+      z-index: 19;
+      width: 90%;
+      height: 100%;
+    }
+    .sidebar-content{
+        width: 85%;
+    }
+    .theme-switch{
+        margin-top: auto;
+        transform: translateY(-300%);
+        width: 100%;
+    }
+    .task-list{
+        width: 80% !important;
+    }
+    .content-header{
+        margin-top: 2rem;
+    }
+    .page-navbar{
+        flex-direction: column;
+        margin-top: 4rem;
+    }
+    .page-links{
+        display: flex;
+       width: 100%;
+       justify-content: center;
+    }
+    .page-links a{
+        width: 50%;
+        padding-left: 0.5rem;
+        justify-content: center;
+    }
+    .page-search-options{
+       margin-bottom: 4rem;
+       width: 100%;
+    }
+    .page-search-options a:first-child{
+        margin-left: 1rem
+
+    }
+    .search-container{
+        position: relative;
+        width: fit-content;
+    }
+    .search-container span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        transform: translate(0%);
+        z-index:5;
+        opacity: 0.8;
+    }
+
+    .active-input-bar {
+        width: 100% !important;
+        min-width: 6rem !important;
+        opacity: 1 !important;
+    }
+    .search-container span i{
+        cursor: pointer;
+    }
+    .search-container span:hover{
+        opacity: 1;
+    }
+    .search-container input{
+        position: absolute;
+        width: 0rem;
+        opacity: 0;
+        transform: translateX(-5%);
+        transition: var(--default-transition);
+    }
+    #new-task{
+        margin-left: auto;
+        margin-right: 1rem;
+    }
+
+    .task-details{
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        padding-block: 35%;
+    }
+
+    .task-preview, .task-form{
+        width: 80% !important;
+    }
+
+    .task-preview{
+        min-height: 15rem !important;
+    }
 }

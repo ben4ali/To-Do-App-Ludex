@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { selectPage } from "../animations/TogglePageLink";
 import { useState } from 'react';
+import { toggleSearchInput } from '../animations/ToggleSearchInput';
 
 interface NavbarProps {
   onSearchChange: (term: string) => void;
@@ -37,15 +38,16 @@ export const Navbar = ({ onSearchChange }: NavbarProps) => {
         </Link>
       </div>
       <div className="page-search-options">
-        <a href="#">Filter</a>
         <a href="#">Sort</a>
         <div className="search-container">
-          <span id="search">
+          <span id="search" onClick={toggleSearchInput}>
             <i className="bi bi-search"></i>
           </span>
           <input 
+            id = "search-input"
             type="text" 
             placeholder="Search a task" 
+            className='active-input-bar'
             value={searchTerm} 
             onChange={handleSearchChange}
           />
