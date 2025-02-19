@@ -1,13 +1,27 @@
 import { ToggleOptions } from "../animations/ToggleOption";
+import { deleteTask } from "../utils/localStorage";
+import { useNavigate } from 'react-router-dom';
 
 interface TaskItemProps {
+    id: string;
     title: string;
     description: string;
     status: string;
     date: string;
 }
 
-export const TaskItem = ({ title, description, status, date }: TaskItemProps) => {
+export const TaskItem = ({ id, title, description, status, date }: TaskItemProps) => {
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+        deleteTask(id);
+        window.location.reload();
+    };
+
+    const handleEdit = () => {
+        navigate(`/task-details/${id}`);
+    };
+
     return (
         <div className="task-item">
             <div className="task-header">
@@ -18,9 +32,9 @@ export const TaskItem = ({ title, description, status, date }: TaskItemProps) =>
                 <div className="task-options">
                     <div onClick={ToggleOptions} className="option-btn">
                         <i className="bi bi-three-dots"></i>
-                        <div  className="dialogOption">
-                            <span>Delete</span>
-                            <span>Edit</span>
+                        <div className="dialogOption">
+                            <span onClick={handleDelete}>Delete</span>
+                            <span onClick={handleEdit}>Edit</span>
                         </div>
                     </div>
                 </div>

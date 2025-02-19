@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addTask, updateTask, getTaskById, Task } from '../utils/localStorage';
 import '../styles/style-task-details.css';
 
 export const TaskDetails = () => {
+    const { taskId } = useParams<{ taskId: string }>();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskStatus, setTaskStatus] = useState('To do');
     const [taskDueDate, setTaskDueDate] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (taskId) {
+            const task = getTaskById(taskId);
+            if (task) {
+                setTaskName(task.title);
+                setTaskDescription(task.description);
+                setTaskStatus(task.status);
+                setTaskDueDate(task.date);
+            }
+        }
+    }, [taskId]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,6 +31,21 @@ export const TaskDetails = () => {
             return;
         }
         setError('');
+
+        const task: Task = {
+            id: taskId || Date.now().toString(),
+            title: taskName,
+            description: taskDescription,
+            status: taskStatus,
+            date: taskDueDate
+        };
+
+        if (taskId) {
+            updateTask(task);
+        } else {
+            addTask(task);
+        }
+
         navigate('/');
     };
 
@@ -37,7 +66,7 @@ export const TaskDetails = () => {
             </div>
 
             <div className='task-form'>
-                <h3>Task creation</h3>
+                <h3>{taskId ? 'Edit Task' : 'Create Task'}</h3>
                 <form onSubmit={handleSubmit}>
                     {error && <p className="error">{error}</p>}
                     <div className='input-group'>
@@ -84,7 +113,7 @@ export const TaskDetails = () => {
                             />
                         </div>
                     </div>
-                    <button type="submit">Create new task</button>
+                    <button type="submit">{taskId ? 'Update Task' : 'Create Task'}</button>
                 </form>
             </div>
         </div>

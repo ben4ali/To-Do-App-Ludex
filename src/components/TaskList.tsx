@@ -1,44 +1,13 @@
 import { Link } from 'react-router-dom';
 import { TaskItem } from './TaskItem';
+import { getTasks } from '../utils/localStorage';
 
 interface TaskListProps {
   listType: string;
 }
 
 export const TaskList = ({ listType }: TaskListProps) => {
-  const tasks = [
-    {
-      title: 'Task 1',
-      description: 'This is a task description',
-      status: 'To do',
-      date: '2025-02-18'
-    },
-    {
-      title: 'Task 2',
-      description: 'This is a task description',
-      status: 'In progress',
-      date: '2025-02-18'
-    },
-    {
-      title: 'Task 3',
-      description: 'This is a task description',
-      status: 'Done',
-      date: '2025-02-18'
-    },
-    {
-      title: 'Task 4',
-      description: 'This is a task description',
-      status: 'To do',
-      date: '2025-02-18'
-    },
-    {
-      title: 'Task 5',
-      description: 'This is a task description',
-      status: 'To do',
-      date: '2025-02-18'
-    }
-  ];
-
+  const tasks = getTasks();
   const filteredTasks = listType === 'All tasks' ? tasks : tasks.filter(task => task.status === listType);
 
   return (
@@ -57,6 +26,7 @@ export const TaskList = ({ listType }: TaskListProps) => {
         {filteredTasks.map((task, index) => (
           <TaskItem
             key={index}
+            id={task.id}
             title={task.title}
             description={task.description}
             status={task.status}

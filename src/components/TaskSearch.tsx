@@ -1,55 +1,17 @@
 import { useState, useEffect } from 'react';
 import { TaskItem } from "./TaskItem";
+import { getTasks, Task } from '../utils/localStorage';
 
 interface TaskSearchProps {
     searchTerm: string;
     taskStatus?: string;
 }
 
-interface Task {
-    title: string;
-    description: string;
-    status: string;
-    date: string;
-}
-
 export const TaskSearch = ({ searchTerm, taskStatus }: TaskSearchProps) => {
     const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
 
-    const tasks = [
-        {
-            title: 'Task 1',
-            description: 'This is a task description',
-            status: 'To do',
-            date: '2025-02-18'
-        },
-        {
-            title: 'Task 2',
-            description: 'This is a task description',
-            status: 'In progress',
-            date: '2025-02-18'
-        },
-        {
-            title: 'Task 3',
-            description: 'This is a task description',
-            status: 'Done',
-            date: '2025-02-18'
-        },
-        {
-            title: 'Task 4',
-            description: 'This is a task description',
-            status: 'To do',
-            date: '2025-02-18'
-        },
-        {
-            title: 'Task 5',
-            description: 'This is a task description',
-            status: 'To do',
-            date: '2025-02-18'
-        }
-    ];
-
     useEffect(() => {
+        const tasks = getTasks();
         setFilteredTasks(tasks.filter(task =>
             (task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             task.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
@@ -62,6 +24,7 @@ export const TaskSearch = ({ searchTerm, taskStatus }: TaskSearchProps) => {
             {filteredTasks.map((task, index) => (
                 <TaskItem
                     key={index}
+                    id={task.id}
                     title={task.title}
                     description={task.description}
                     status={task.status}

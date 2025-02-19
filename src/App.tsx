@@ -37,6 +37,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} />} />
               <Route path="/task-details" element={<TaskDetails />} />
+              <Route path="/task-details/:taskId" element={<TaskDetails />} />
             </Routes>
           </div>
         </div>
