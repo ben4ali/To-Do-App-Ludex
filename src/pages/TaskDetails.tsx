@@ -31,8 +31,8 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!taskName || !taskDescription) {
-            setError('Task name and description must not be empty');
+        if (!taskName || !taskDescription || !taskDueDate) {
+            setError('Task name, description and due date must not be empty');
             return;
         }
         setError('');
