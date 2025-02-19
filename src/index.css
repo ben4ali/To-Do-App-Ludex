@@ -12,7 +12,11 @@
   --high-highlight-color: rgb(63, 63, 68);
   --text-transparent: rgba(231, 248, 245, 0.5);
   --selected-color: rgb(255,255,255);
+  --task-list-color: rgb(24, 25, 29);
+  --task-color: rgba(226, 228, 250, 0.1);
+  --task-highlight-color: rgb(56, 59, 68);
 
+  --brightness: 1.5;
 
   --font-family: 'Exo 2', sans-serif;
   --default-transition: all 0.2s ease-in-out;
@@ -28,6 +32,11 @@ body.light-mode {
   --high-highlight-color: rgb(202, 202, 214);
   --text-transparent: rgba(54, 58, 57, 0.5);
   --selected-color: rgb(0,0,0);
+  --task-list-color: rgb(247, 248, 255);
+  --task-color: rgba(34, 47, 83, 0.1);
+  --task-highlight-color: rgba(198, 207, 228, 0.616);
+
+  --brightness: 0.9;
 }
 
 
