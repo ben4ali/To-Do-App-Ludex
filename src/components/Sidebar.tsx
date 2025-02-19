@@ -1,4 +1,5 @@
 import { ThemeToggle } from "./ThemeToggle";
+import { ToggleSideBar } from "../animations/ToggleSideBar";
 import { DisplayLinks, selectLink } from '../animations/ToggleLinks';
 import { Link } from 'react-router-dom';
 import { Task } from '../utils/localStorage';
@@ -19,14 +20,18 @@ export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
     selectLink(e);
   };
 
+  const toggleSidebar = ToggleSideBar();
+
   return (
     <div className="sidebar">
-      <div className="sb-header">
+            <div className="sb-header">
         <h1>To-do app</h1>
-        <Link to="/task-details" className="add-task">
-          <i className="bi bi-plus"></i>
-        </Link>
+        <div onClick={toggleSidebar} className="add-task">
+            <i className="bi bi-caret-right-fill"></i>
+        </div>
       </div>
+      <div className="sidebar-content">
+
       <div className="nav-links">
         <div className="nav-header">
           <h3>Tasks</h3>
@@ -50,6 +55,8 @@ export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
       <div className="theme-switch">
         <ThemeToggle />
       </div>
+      </div>
+ 
     </div>
   );
 };
