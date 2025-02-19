@@ -42,7 +42,7 @@
     color: var(--text-transparent);
 }
 
-.task-status{
+.task-status-preview{
     display: flex;
     align-items: center;
     gap: 0.5rem; 
@@ -50,9 +50,12 @@
     margin-top: 1.5rem;
 }
 
-.task-dates{
+.task-dates-preview{
     width: 35%;
     text-align: center;
+    background-color: var(--task-highlight-color);
+    padding: 0.5rem;
+    border-radius: 50px;
     font-size: 20px;
 }
 

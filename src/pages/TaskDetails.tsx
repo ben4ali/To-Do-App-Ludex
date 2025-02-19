@@ -26,12 +26,12 @@ export const TaskDetails = () => {
                 <div className='task-header-info'>
                     <h3>{taskName || 'Task Title'}</h3>
                     <h4>{taskDescription || 'Task Description'}</h4>
-                    <div className='task-status'>
+                    <div className='task-status-preview'>
                         <i className="bi bi-list-ul"></i>
                         <p>{taskStatus}</p>
                     </div>
                 </div>
-                <div className='task-dates'>
+                <div className='task-dates-preview'>
                     <p>{taskDueDate || '2025-02-18'}</p>
                 </div>
             </div>

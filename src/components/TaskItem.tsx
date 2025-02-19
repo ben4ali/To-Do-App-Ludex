@@ -1,3 +1,5 @@
+import { ToggleOptions } from "../animations/ToggleOption";
+
 interface TaskItemProps {
     title: string;
     description: string;
@@ -14,8 +16,12 @@ export const TaskItem = ({ title, description, status, date }: TaskItemProps) =>
                     <p>{description}</p>
                 </div>
                 <div className="task-options">
-                    <div className="option-btn">
+                    <div onClick={ToggleOptions} className="option-btn">
                         <i className="bi bi-three-dots"></i>
+                        <div  className="dialogOption">
+                            <span>Delete</span>
+                            <span>Edit</span>
+                        </div>
                     </div>
                 </div>
             </div>
