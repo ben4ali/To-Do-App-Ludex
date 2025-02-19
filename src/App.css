@@ -162,6 +162,7 @@
 /* THEME TOGGLE STYLE */
 .theme-switch{
    margin-top: auto;
+   transform: translateY(-80%);
    width: 100%;
 }
 
