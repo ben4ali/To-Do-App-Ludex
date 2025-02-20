@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TaskItem } from "./TaskItem";
+import { TaskItem } from './TaskItem';
 import { Task } from '../utils/localStorage';
 import { Swapy } from 'swapy';
 
@@ -11,19 +11,28 @@ interface TaskSearchProps {
   swapyInstance: Swapy | null;
 }
 
-export const TaskSearch = ({ searchTerm, tasks, onDelete, onUpdate, swapyInstance }: TaskSearchProps) => {
+export const TaskSearch = ({
+  searchTerm,
+  tasks,
+  onDelete,
+  onUpdate,
+  swapyInstance,
+}: TaskSearchProps) => {
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
 
   // filter tasks based on search term
   useEffect(() => {
-    setFilteredTasks(tasks.filter(task =>
-      task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      task.description.toLowerCase().includes(searchTerm.toLowerCase())
-    ));
+    setFilteredTasks(
+      tasks.filter(
+        (task) =>
+          task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          task.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
 
     //get all task items and remove the checkbox
     const taskItems = document.querySelectorAll('.task-item');
-    taskItems.forEach(item => {
+    taskItems.forEach((item) => {
       const taskFooter = item.querySelector('.task-footer');
       if (taskFooter) {
         const checkHolder = taskFooter.querySelector('.completion-status');

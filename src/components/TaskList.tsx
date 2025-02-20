@@ -11,12 +11,18 @@ interface TaskListProps {
   swapyInstance: Swapy | null;
 }
 
-export const TaskList = ({ listType, tasks, onDelete, onUpdate, swapyInstance }: TaskListProps) => {
+export const TaskList = ({
+  listType,
+  tasks,
+  onDelete,
+  onUpdate,
+  swapyInstance,
+}: TaskListProps) => {
   return (
     <div className="task-list">
       <div className="task-list-header">
         <h4>{listType}</h4>
-        <Link to="/task-details" className='add-option-list'>
+        <Link to="/task-details" className="add-option-list">
           <div className="list-task-add">
             <i className="bi bi-plus"></i>
           </div>
@@ -24,9 +30,9 @@ export const TaskList = ({ listType, tasks, onDelete, onUpdate, swapyInstance }:
         </Link>
       </div>
 
-      <div className='task-holder'>
+      <div className="task-holder">
         {tasks.map((task, index) => (
-          <TaskItem 
+          <TaskItem
             key={index}
             id={task.id}
             title={task.title}
@@ -38,10 +44,8 @@ export const TaskList = ({ listType, tasks, onDelete, onUpdate, swapyInstance }:
             swapyInstance={swapyInstance}
           />
         ))}
-        <div className='slot' data-swapy-slot={"drop-place"+listType}>
-          
-        </div>
+        <div className="slot" data-swapy-slot={'drop-place' + listType}></div>
       </div>
     </div>
   );
-}
+};

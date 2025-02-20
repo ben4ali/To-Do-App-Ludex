@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { ThemeToggle } from "./ThemeToggle";
-import { ToggleSideBar } from "../animations/ToggleSideBar";
+import { ThemeToggle } from './ThemeToggle';
+import { ToggleSideBar } from '../animations/ToggleSideBar';
 import { DisplayLinks, selectLink } from '../animations/ToggleLinks';
 import { Link } from 'react-router-dom';
 import { Task } from '../utils/localStorage';
@@ -13,9 +13,10 @@ interface SidebarProps {
 export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
   const [taskCounts, setTaskCounts] = useState({
     allTasksCount: tasks.length,
-    toDoCount: tasks.filter(task => task.status === 'To do').length,
-    inProgressCount: tasks.filter(task => task.status === 'In progress').length,
-    doneCount: tasks.filter(task => task.status === 'Done').length,
+    toDoCount: tasks.filter((task) => task.status === 'To do').length,
+    inProgressCount: tasks.filter((task) => task.status === 'In progress')
+      .length,
+    doneCount: tasks.filter((task) => task.status === 'Done').length,
   });
 
   useEffect(() => {
@@ -25,12 +26,12 @@ export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
       let inProgressCount = 0;
       let doneCount = 0;
 
-      taskLists.forEach(list => {
+      taskLists.forEach((list) => {
         const taskType = list.querySelector('h4')?.textContent;
         const taskHolder = list.querySelector('.task-holder');
         const slots = taskHolder?.querySelectorAll('.slot');
         let count = 0;
-        slots?.forEach(slot => {
+        slots?.forEach((slot) => {
           if (slot.firstElementChild) {
             count++;
           }
@@ -51,10 +52,11 @@ export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
 
       //if there are no tasks in the list (then get the count from the state)
       if (taskLists.length === 0) {
-        
-        toDoCount = tasks.filter(task => task.status === 'To do').length;
-        inProgressCount = tasks.filter(task => task.status === 'In progress').length;
-        doneCount = tasks.filter(task => task.status === 'Done').length;
+        toDoCount = tasks.filter((task) => task.status === 'To do').length;
+        inProgressCount = tasks.filter(
+          (task) => task.status === 'In progress'
+        ).length;
+        doneCount = tasks.filter((task) => task.status === 'Done').length;
       }
 
       setTaskCounts({
@@ -79,37 +81,57 @@ export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
     setIsOpen((prev) => !prev);
   };
 
-
   return (
     <div className="sidebar">
       <div className="sb-header">
         <h1>To-do app</h1>
-        <div onClick={() => { 
-          setIsOpen((prev) => !prev);
-          ToggleSideBar(isOpen);
-        }} className="add-task">
+        <div
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+            ToggleSideBar(isOpen);
+          }}
+          className="add-task"
+        >
           <i className="bi bi-caret-right-fill"></i>
         </div>
-
-
       </div>
       <div className="sidebar-content">
         <div className="nav-links">
           <div className="nav-header">
             <h3>Tasks</h3>
-            <i id="link-btn" className="bi bi-chevron-down active" onClick={DisplayLinks}></i>
+            <i
+              id="link-btn"
+              className="bi bi-chevron-down active"
+              onClick={DisplayLinks}
+            ></i>
           </div>
           <div id="links">
-            <Link to="/" onClick={(e) => handleStatusChange('All tasks', e)} className="selectedLink link">
+            <Link
+              to="/"
+              onClick={(e) => handleStatusChange('All tasks', e)}
+              className="selectedLink link"
+            >
               All tasks ({taskCounts.allTasksCount})
             </Link>
-            <Link to="/" onClick={(e) => handleStatusChange('To do', e)} className="link">
+            <Link
+              to="/"
+              onClick={(e) => handleStatusChange('To do', e)}
+              className="link"
+            >
               To do ({taskCounts.toDoCount})
             </Link>
-            <Link to="/" onClick={(e) => handleStatusChange('In progress', e)} className="link">
+            <Link
+              to="/"
+              onClick={(e) => handleStatusChange('In progress', e)}
+              className="link"
+            >
               In progress ({taskCounts.inProgressCount})
             </Link>
-            <Link to="/" onClick={(e) => handleStatusChange('Done', e)} className="link">
+            <Link
+              to="/"
+              onClick={(e) => handleStatusChange('Done', e)}
+              className="link"
+            >
               Done ({taskCounts.doneCount})
             </Link>
           </div>

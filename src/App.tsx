@@ -6,8 +6,13 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { TaskDetails } from './pages/TaskDetails';
 import { useState, useEffect } from 'react';
-import { getTasks, Task, deleteTask, sortTasksByDate, createMockTasks } from './utils/localStorage';
-
+import {
+  getTasks,
+  Task,
+  deleteTask,
+  sortTasksByDate,
+  createMockTasks,
+} from './utils/localStorage';
 
 function App() {
   const [isSearching, setIsSearching] = useState(false);
@@ -37,16 +42,17 @@ function App() {
   };
 
   const handleTaskDelete = (taskId: string) => {
-      deleteTask(taskId);
-      setTasks(getTasks());
-    
+    deleteTask(taskId);
+    setTasks(getTasks());
   };
   const handleTaskAdd = (newTask: Task) => {
     setTasks([...tasks, newTask]);
   };
 
   const handleTaskUpdate = (updatedTask: Task) => {
-    setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
+    setTasks(
+      tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+    );
   };
 
   const handleSortTasks = (order: 'newest' | 'oldest') => {
@@ -58,14 +64,46 @@ function App() {
     <Router>
       <div className="App">
         <Sidebar onStatusChange={handleStatusChange} tasks={tasks} />
-        <div className='content-holder'>
+        <div className="content-holder">
           <ContentHeader />
-          <Navbar onSearchChange={handleSearchChange} onSortTasks={handleSortTasks} />
-          <div className='pages'>
+          <Navbar
+            onSearchChange={handleSearchChange}
+            onSortTasks={handleSortTasks}
+          />
+          <div className="pages">
             <Routes>
-              <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} onDelete={handleTaskDelete} onUpdate={handleTaskUpdate} tasks={tasks} />} />
-              <Route path="/task-details" element={<TaskDetails onTaskAdd={handleTaskAdd} onTaskDelete={handleTaskDelete}/>} />
-              <Route path="/task-details/:taskId" element={<TaskDetails onTaskAdd={handleTaskAdd} onTaskUpdate={handleTaskUpdate} onTaskDelete={handleTaskDelete} />} />
+              <Route
+                path="/"
+                element={
+                  <Dashboard
+                    isSearching={isSearching}
+                    searchTerm={searchTerm}
+                    selectedStatus={selectedStatus}
+                    onDelete={handleTaskDelete}
+                    onUpdate={handleTaskUpdate}
+                    tasks={tasks}
+                  />
+                }
+              />
+              <Route
+                path="/task-details"
+                element={
+                  <TaskDetails
+                    onTaskAdd={handleTaskAdd}
+                    onTaskDelete={handleTaskDelete}
+                  />
+                }
+              />
+              <Route
+                path="/task-details/:taskId"
+                element={
+                  <TaskDetails
+                    onTaskAdd={handleTaskAdd}
+                    onTaskUpdate={handleTaskUpdate}
+                    onTaskDelete={handleTaskDelete}
+                  />
+                }
+              />
             </Routes>
           </div>
         </div>

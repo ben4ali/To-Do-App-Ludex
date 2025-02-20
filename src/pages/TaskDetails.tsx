@@ -1,157 +1,169 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addTask, updateTask,deleteTask, getTaskById, Task } from '../utils/localStorage';
+import {
+  addTask,
+  updateTask,
+  deleteTask,
+  getTaskById,
+  Task,
+} from '../utils/localStorage';
 import '../styles/style-task-details.css';
 
 interface TaskDetailsProps {
-    onTaskAdd: (newTask: Task) => void;
-    onTaskUpdate?: (updatedTask: Task) => void;
-    onTaskDelete?: (taskId: string) => void;
+  onTaskAdd: (newTask: Task) => void;
+  onTaskUpdate?: (updatedTask: Task) => void;
+  onTaskDelete?: (taskId: string) => void;
 }
 
-export const TaskDetails = ({ onTaskAdd, onTaskUpdate, onTaskDelete }: TaskDetailsProps) => {
+export const TaskDetails = ({
+  onTaskAdd,
+  onTaskUpdate,
+  onTaskDelete,
+}: TaskDetailsProps) => {
+  //useState to store the task name, description, status due date and error message
+  const { taskId } = useParams<{ taskId: string }>();
+  const [taskName, setTaskName] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
+  const [taskStatus, setTaskStatus] = useState('To do');
+  const [taskDueDate, setTaskDueDate] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    if (taskId) {
+      onTaskDelete && onTaskDelete(taskId);
+      deleteTask(taskId);
+      navigate('/');
+    }
+  };
+  // useEffect to get the task details if the task id is provided
+  useEffect(() => {
+    if (taskId) {
+      const task = getTaskById(taskId);
+      if (task) {
+        setTaskName(task.title);
+        setTaskDescription(task.description);
+        setTaskStatus(task.status);
+        setTaskDueDate(task.date);
+      }
+    }
+  }, [taskId]);
 
-    //useState to store the task name, description, status due date and error message
-    const { taskId } = useParams<{ taskId: string }>();
-    const [taskName, setTaskName] = useState('');
-    const [taskDescription, setTaskDescription] = useState('');
-    const [taskStatus, setTaskStatus] = useState('To do');
-    const [taskDueDate, setTaskDueDate] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
-    const handleDelete = () => {
-        if (taskId) {
-            onTaskDelete && onTaskDelete(taskId);
-          deleteTask(taskId);
-          navigate('/');
-        }
-      };
-    // useEffect to get the task details if the task id is provided
-    useEffect(() => {
-        if (taskId) {
-            const task = getTaskById(taskId);
-            if (task) {
-                setTaskName(task.title);
-                setTaskDescription(task.description);
-                setTaskStatus(task.status);
-                setTaskDueDate(task.date);
-            }
-        }
-    }, [taskId]);
+  //validate the form and add or update the task
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!taskName || !taskDescription || !taskDueDate) {
+      setError('Task name, description and due date must not be empty');
+      return;
+    }
+    setError('');
 
-    //validate the form and add or update the task
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!taskName || !taskDescription || !taskDueDate) {
-            setError('Task name, description and due date must not be empty');
-            return;
-        }
-        setError('');
-
-        //create a task object
-        const task: Task = {
-            id: taskId || Date.now().toString(),
-            title: taskName,
-            description: taskDescription,
-            status: taskStatus,
-            date: taskDueDate
-        };
-
-        //add or update the task
-        if (taskId) {
-            updateTask(task);
-            if (onTaskUpdate) {
-                onTaskUpdate(task);
-            }
-        } else {
-            addTask(task);
-            onTaskAdd(task);
-        }
-
-        //navigate to the dashboard
-        navigate('/');
+    //create a task object
+    const task: Task = {
+      id: taskId || Date.now().toString(),
+      title: taskName,
+      description: taskDescription,
+      status: taskStatus,
+      date: taskDueDate,
     };
 
-    return (
-        <div className="task-details">
-            <div className="task-preview">
-                <div className='task-header-info'>
-                    <h3>{taskName || 'Task Title'}</h3>
-                    <h4>{taskDescription || 'Task Description'}</h4>
-                    <div className='task-status-preview'>
-                        <i className="bi bi-list-ul"></i>
-                        <p>{taskStatus}</p>
-                    </div>
-                </div>
-                <div className='task-dates-preview'>
-                    <p>{taskDueDate || '2025-02-18'}</p>
-                </div>
-            </div>
+    //add or update the task
+    if (taskId) {
+      updateTask(task);
+      if (onTaskUpdate) {
+        onTaskUpdate(task);
+      }
+    } else {
+      addTask(task);
+      onTaskAdd(task);
+    }
 
-            <div className='task-form'>
-                <h3>{taskId ? 'Edit Task' : 'Create Task'}</h3>
-                <form onSubmit={handleSubmit}>
-                    {error && <p className="error">{error}</p>}
-                    <div className='input-group'>
-                        <label htmlFor="input-name">Task name</label>
-                        <input
-                            type="text"
-                            placeholder="Task Name"
-                            value={taskName}
-                            onChange={(e) => setTaskName(e.target.value)}
-                        />
-                    </div>
-                    <div className='input-group'>
-                        <label htmlFor="input-description">Task description</label>
-                        <input
-                            type="text"
-                            placeholder="Task Description"
-                            value={taskDescription}
-                            onChange={(e) => setTaskDescription(e.target.value)}
-                        />
-                    </div>
-                    <div className='select-holder'>
-                        <div className='input-group'>
-                            <label htmlFor="status-select">Status</label>
-                            <select
-                                name="status"
-                                id="status-select"
-                                value={taskStatus}
-                                onChange={(e) => setTaskStatus(e.target.value)}
-                            >
-                                <option value="To do">To do</option>
-                                <option value="In progress">In progress</option>
-                                <option value="Done">Done</option>
-                            </select>
-                        </div>
-                        <div className='input-group'>
-                            <label htmlFor="due-date">Due date</label>
-                            <input
-                                type="date"
-                                id="due-date"
-                                name="due-date"
-                                title="Due date"
-                                value={taskDueDate}
-                                onChange={(e) => setTaskDueDate(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className='btnHolder-details'>
-                        <button type="submit">{taskId ? 'Update Task' : 'Create Task'}</button>
-                        {taskId && (
-                        <button 
-                            type="button" 
-                            onClick={handleDelete} 
-                            style={{ backgroundColor: 'var(--error-color)', marginTop: '1rem' }}
-                        >
-                            Delete Task
-                        </button>
-                        )}
-                    </div>
+    //navigate to the dashboard
+    navigate('/');
+  };
 
-      
-                </form>
-            </div>
+  return (
+    <div className="task-details">
+      <div className="task-preview">
+        <div className="task-header-info">
+          <h3>{taskName || 'Task Title'}</h3>
+          <h4>{taskDescription || 'Task Description'}</h4>
+          <div className="task-status-preview">
+            <i className="bi bi-list-ul"></i>
+            <p>{taskStatus}</p>
+          </div>
         </div>
-    );
+        <div className="task-dates-preview">
+          <p>{taskDueDate || '2025-02-18'}</p>
+        </div>
+      </div>
+
+      <div className="task-form">
+        <h3>{taskId ? 'Edit Task' : 'Create Task'}</h3>
+        <form onSubmit={handleSubmit}>
+          {error && <p className="error">{error}</p>}
+          <div className="input-group">
+            <label htmlFor="input-name">Task name</label>
+            <input
+              type="text"
+              placeholder="Task Name"
+              value={taskName}
+              onChange={(e) => setTaskName(e.target.value)}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="input-description">Task description</label>
+            <input
+              type="text"
+              placeholder="Task Description"
+              value={taskDescription}
+              onChange={(e) => setTaskDescription(e.target.value)}
+            />
+          </div>
+          <div className="select-holder">
+            <div className="input-group">
+              <label htmlFor="status-select">Status</label>
+              <select
+                name="status"
+                id="status-select"
+                value={taskStatus}
+                onChange={(e) => setTaskStatus(e.target.value)}
+              >
+                <option value="To do">To do</option>
+                <option value="In progress">In progress</option>
+                <option value="Done">Done</option>
+              </select>
+            </div>
+            <div className="input-group">
+              <label htmlFor="due-date">Due date</label>
+              <input
+                type="date"
+                id="due-date"
+                name="due-date"
+                title="Due date"
+                value={taskDueDate}
+                onChange={(e) => setTaskDueDate(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="btnHolder-details">
+            <button type="submit">
+              {taskId ? 'Update Task' : 'Create Task'}
+            </button>
+            {taskId && (
+              <button
+                type="button"
+                onClick={handleDelete}
+                style={{
+                  backgroundColor: 'var(--error-color)',
+                  marginTop: '1rem',
+                }}
+              >
+                Delete Task
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };

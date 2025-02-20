@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-
-
   --background-color: rgb(41, 42, 46);
   --text-color: rgb(231, 248, 245);
   --primary-color: rgb(37, 39, 45);
@@ -11,7 +9,7 @@
   --highlight-color: rgb(49, 49, 53);
   --high-highlight-color: rgb(63, 63, 68);
   --text-transparent: rgba(231, 248, 245, 0.5);
-  --selected-color: rgb(255,255,255);
+  --selected-color: rgb(255, 255, 255);
   --task-list-color: rgb(24, 25, 29);
   --task-color: rgba(226, 228, 250, 0.1);
   --task-highlight-color: rgb(56, 59, 68);
@@ -32,7 +30,7 @@ body.light-mode {
   --highlight-color: rgb(226, 221, 221);
   --high-highlight-color: rgb(202, 202, 214);
   --text-transparent: rgba(54, 58, 57, 0.8);
-  --selected-color: rgb(0,0,0);
+  --selected-color: rgb(0, 0, 0);
   --task-list-color: rgb(247, 248, 255);
   --task-color: rgba(110, 129, 182, 0.1);
   --task-highlight-color: rgba(199, 211, 240, 0.616);
@@ -40,7 +38,6 @@ body.light-mode {
 
   --brightness: 0.9;
 }
-
 
 body {
   margin: 0;
