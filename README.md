@@ -1,46 +1,87 @@
-# Getting Started with Create React App
+# My To-Do App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+**What is it:**  
+A to-do app.
 
-In the project directory, you can run:
+**Purpose:**  
+Technical test for Ludex Labs.
 
-### `npm start`
+**Features:**  
+- Create, Read, Update, and Delete tasks using local storage  
+- Drag and drop support  
+- Dark & Light theme  
+- Filtering and search  
+- Error handling  
+- Mobile responsiveness
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies Used
+- **React TypeScript**  
+- **GSAP** for animations  
+- **Swapy** for drag and drop functionality  
+- **Prettier** for formatting  
+- **ESLint** for code quality
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## How I Built It
+1. Created Figma mockups.  
+2. Structured the project to identify the needed components.  
+3. Coded a static version of the website.  
+4. Implemented persistence with local storage and full CRUD operations.  
+5. Experimented with drag and drop in a separate branch, then merged the feature into main.  
+6. Documented, formatted, and improved code quality using comments, Prettier, and ESLint.  
+7. Fixed bugs.  
+8. Documentation.
 
-### `npm test`
+## Previews
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Dark and light mode
+![Preview 1](previews/Preview1.png)
+![Preview 2](previews/Preview2.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Drag and drop (Updates status)
+![Preview 3](previews/Preview3.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Filtering and search
+![Preview 4](previews/Preview4.png)
+![Preview 7](previews/Preview7.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Creation and validation, Edition and Deletion
+![Preview 5](previews/Preview5.png)
+![Preview 6](previews/Preview6.png)
+![Preview 8](previews/Preview8.png)
 
-### `npm run eject`
+### Mobile layout
+![Preview 9](previews/Preview9.png)
+![Preview 10](previews/Preview10.png)
+![Preview 11](previews/Preview11.png)
+![Preview 12](previews/Preview12.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to Start the Project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/ben4ali/To-Do-App-Ludex
+    ```
+2. **Navigate to the project directory:**
+    ```bash
+    cd my-todo-app
+    ```
+3. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+4. **Start the development server:**
+    ```bash
+    npm start
+    ```
+5. **Open your browser and visit:**
+    ```
+    http://localhost:3000
+    ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Credits
+- UI mockup design inspiration from Mehdi Bagheri, https://dribbble.com/mehdibagheri
+- Checkbox animation from kyle1dev on UIverse, https://uiverse.io/kyle1dev/afraid-wasp-94
