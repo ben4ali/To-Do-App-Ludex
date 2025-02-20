@@ -441,9 +441,11 @@
 
   .task-details {
     flex-direction: column;
+    justify-content: start;
     width: 100%;
-    height: fit-content;
-    padding-block: 35%;
+    height: fit-content !important;
+    padding-block: 1rem;
+
   }
 
   .task-preview,
@@ -451,8 +453,13 @@
     width: 80% !important;
   }
 
+  .task-form {
+    min-height: 25rem !important;
+  }
+
   .task-preview {
     min-height: 15rem !important;
+    margin-bottom: 2rem;
   }
 
   .task-dates-preview {
