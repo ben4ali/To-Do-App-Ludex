@@ -22,7 +22,32 @@ export const Navbar = ({ onSearchChange, onSortTasks }: NavbarProps) => {
   const handleSortToggle = () => {
     const newOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
     setSortOrder(newOrder);
-    onSortTasks(newOrder);
+
+    const sortTasks = (taskHolder: HTMLElement) => {
+      const taskItems = Array.from(taskHolder.querySelectorAll('.task-item'));
+
+      const sortedTaskItems = taskItems.sort((a, b) => {
+      const dateA = new Date(a.querySelector('.task-dates')?.textContent || '').getTime();
+      const dateB = new Date(b.querySelector('.task-dates')?.textContent || '').getTime();
+      console.log(a.querySelector('.task-dates')?.textContent);
+      return newOrder === 'newest' ? dateB - dateA : dateA - dateB;
+      });
+
+      const emptySlot = taskHolder.querySelector('.slot:empty');
+      if (emptySlot) {
+        sortedTaskItems.forEach(taskItem => taskHolder.insertBefore(taskItem.parentElement!, emptySlot));
+      } else {
+        sortedTaskItems.forEach(taskItem => taskHolder.appendChild(taskItem.parentElement!));
+      }
+    };
+
+    const taskLists = document.querySelectorAll('.task-list');
+    taskLists.forEach(taskList => {
+      const taskHolder = taskList.querySelector('.task-holder') as HTMLElement;
+      if (taskHolder) {
+        sortTasks(taskHolder);
+      }
+    });
   };
 
   return (
