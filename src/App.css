@@ -311,6 +311,15 @@
     color: var(--text-color);
 }
 
+#sortBtn{
+    opacity: 0.5;
+    transition: var(--default-transition);
+    cursor: pointer;
+}
+
+#sortBtn:hover{
+    opacity: 1;
+}
 .search-container{
     display: flex;
     align-items: center;

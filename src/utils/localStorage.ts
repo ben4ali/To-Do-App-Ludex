@@ -36,3 +36,11 @@ export const deleteTask = (taskId: string) => {
 export const getTaskById = (taskId: string): Task | undefined => {
     return getTasks().find(task => task.id === taskId);
 };
+
+export const sortTasksByDate = (tasks: Task[], order: 'newest' | 'oldest'): Task[] => {
+    return tasks.sort((a, b) => {
+        return order === 'newest'
+            ? new Date(b.date).getTime() - new Date(a.date).getTime()
+            : new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+};

@@ -5,16 +5,24 @@ import { toggleSearchInput } from '../animations/ToggleSearchInput';
 
 interface NavbarProps {
   onSearchChange: (term: string) => void;
+  onSortTasks: (order: 'newest' | 'oldest') => void;
 }
 
-export const Navbar = ({ onSearchChange }: NavbarProps) => {
+export const Navbar = ({ onSearchChange, onSortTasks }: NavbarProps) => {
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value;
     setSearchTerm(term);
     onSearchChange(term);
+  };
+
+  const handleSortToggle = () => {
+    const newOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
+    setSortOrder(newOrder);
+    onSortTasks(newOrder);
   };
 
   return (
@@ -38,13 +46,15 @@ export const Navbar = ({ onSearchChange }: NavbarProps) => {
         </Link>
       </div>
       <div className="page-search-options">
-        <a href="#">Sort</a>
+        <a id="sortBtn" href="#" onClick={handleSortToggle}>
+          Sort by date ({sortOrder === 'newest' ? 'Newest' : 'Oldest'})
+        </a>
         <div className="search-container">
           <span id="search" onClick={toggleSearchInput}>
             <i className="bi bi-search"></i>
           </span>
           <input 
-            id = "search-input"
+            id="search-input"
             type="text" 
             placeholder="Search a task" 
             className='active-input-bar'

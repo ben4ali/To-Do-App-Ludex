@@ -6,7 +6,7 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { TaskDetails } from './pages/TaskDetails';
 import { useState, useEffect } from 'react';
-import { getTasks, Task, deleteTask } from './utils/localStorage';
+import { getTasks, Task, deleteTask, sortTasksByDate } from './utils/localStorage';
 
 function App() {
   const [isSearching, setIsSearching] = useState(false);
@@ -45,13 +45,18 @@ function App() {
     setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
   };
 
+  const handleSortTasks = (order: 'newest' | 'oldest') => {
+    const sortedTasks = sortTasksByDate(tasks, order);
+    setTasks([...sortedTasks]);
+  };
+
   return (
     <Router>
       <div className="App">
         <Sidebar onStatusChange={handleStatusChange} tasks={tasks} />
         <div className='content-holder'>
           <ContentHeader />
-          <Navbar onSearchChange={handleSearchChange} />
+          <Navbar onSearchChange={handleSearchChange} onSortTasks={handleSortTasks} />
           <div className='pages'>
             <Routes>
               <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} onDelete={handleTaskDelete} onUpdate={handleTaskUpdate} tasks={tasks} />} />
