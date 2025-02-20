@@ -6,7 +6,7 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { TaskDetails } from './pages/TaskDetails';
 import { useState, useEffect } from 'react';
-import { getTasks, Task } from './utils/localStorage';
+import { getTasks, Task, deleteTask } from './utils/localStorage';
 
 function App() {
   const [isSearching, setIsSearching] = useState(false);
@@ -33,6 +33,7 @@ function App() {
   };
 
   const handleTaskDelete = (taskId: string) => {
+    deleteTask(taskId);
     setTasks(tasks.filter(task => task.id !== taskId));
   };
 
@@ -53,7 +54,7 @@ function App() {
           <Navbar onSearchChange={handleSearchChange} />
           <div className='pages'>
             <Routes>
-              <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} onDelete={handleTaskDelete} />} />
+              <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} onDelete={handleTaskDelete} onUpdate={handleTaskUpdate} tasks={tasks} />} />
               <Route path="/task-details" element={<TaskDetails onTaskAdd={handleTaskAdd} />} />
               <Route path="/task-details/:taskId" element={<TaskDetails onTaskAdd={handleTaskAdd} onTaskUpdate={handleTaskUpdate} />} />
             </Routes>

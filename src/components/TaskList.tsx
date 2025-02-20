@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 import { TaskItem } from './TaskItem';
-import { getTasks } from '../utils/localStorage';
+import { Task } from '../utils/localStorage';
 
 interface TaskListProps {
   listType: string;
+  tasks: Task[];
   onDelete: (taskId: string) => void;
+  onUpdate: (updatedTask: Task) => void;
 }
 
-export const TaskList = ({ listType, onDelete }: TaskListProps) => {
-  const tasks = getTasks();
-  const filteredTasks = listType === 'All tasks' ? tasks : tasks.filter(task => task.status === listType);
-
+export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps) => {
   return (
     <div className="task-list">
       <div className="task-list-header">
@@ -24,7 +23,7 @@ export const TaskList = ({ listType, onDelete }: TaskListProps) => {
       </div>
 
       <div className='task-holder'>
-        {filteredTasks.map((task, index) => (
+        {tasks.map((task, index) => (
           <TaskItem
             key={index}
             id={task.id}
@@ -33,6 +32,7 @@ export const TaskList = ({ listType, onDelete }: TaskListProps) => {
             status={task.status}
             date={task.date}
             onDelete={onDelete}
+            onUpdate={onUpdate}
           />
         ))}
         <div className='drag-task-item'>

@@ -1,38 +1,38 @@
 import { useState, useEffect } from 'react';
 import { TaskItem } from "./TaskItem";
-import { getTasks, Task } from '../utils/localStorage';
+import { Task } from '../utils/localStorage';
 
 interface TaskSearchProps {
-    searchTerm: string;
-    taskStatus?: string;
-    onDelete: (taskId: string) => void;
+  searchTerm: string;
+  tasks: Task[];
+  onDelete: (taskId: string) => void;
+  onUpdate: (updatedTask: Task) => void;
 }
 
-export const TaskSearch = ({ searchTerm, taskStatus, onDelete }: TaskSearchProps) => {
-    const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
+export const TaskSearch = ({ searchTerm, tasks, onDelete, onUpdate }: TaskSearchProps) => {
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
 
-    useEffect(() => {
-        const tasks = getTasks();
-        setFilteredTasks(tasks.filter(task =>
-            (task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-            (!taskStatus || task.status === taskStatus)
-        ));
-    }, [searchTerm, taskStatus]);
+  useEffect(() => {
+    setFilteredTasks(tasks.filter(task =>
+      task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      task.description.toLowerCase().includes(searchTerm.toLowerCase())
+    ));
+  }, [searchTerm, tasks]);
 
-    return (
-        <div className="task-search">
-            {filteredTasks.map((task, index) => (
-                <TaskItem
-                    key={index}
-                    id={task.id}
-                    title={task.title}
-                    description={task.description}
-                    status={task.status}
-                    date={task.date}
-                    onDelete={onDelete}
-                />
-            ))}
-        </div>
-    );
+  return (
+    <div className="task-search">
+      {filteredTasks.map((task, index) => (
+        <TaskItem
+          key={index}
+          id={task.id}
+          title={task.title}
+          description={task.description}
+          status={task.status}
+          date={task.date}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
+        />
+      ))}
+    </div>
+  );
 };
