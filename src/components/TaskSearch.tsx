@@ -14,6 +14,7 @@ interface TaskSearchProps {
 export const TaskSearch = ({ searchTerm, tasks, onDelete, onUpdate, swapyInstance }: TaskSearchProps) => {
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
 
+  // filter tasks based on search term
   useEffect(() => {
     setFilteredTasks(tasks.filter(task =>
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -18,9 +18,11 @@ export const Dashboard = ({ isSearching, searchTerm, selectedStatus, onDelete, o
   const [swapyInstance, setSwapyInstance] = useState<Swapy | null>(null);
   let draggingItem = '';
   let fromSlot = '';
-  useEffect(() => {
+
+  const initializeSwapy = () => {
     const container = document.querySelector('.dashboard');
     if (container) {
+      //initialize swapy
       const swapy = createSwapy(container as HTMLElement, { 
         animation: 'dynamic',
         enabled: true,
@@ -29,11 +31,13 @@ export const Dashboard = ({ isSearching, searchTerm, selectedStatus, onDelete, o
       });
 
       swapy.onSwapStart((event) => {
+        //store dragging item and original slot
         draggingItem = event.draggingItem;
         fromSlot = event.fromSlot;
       });
 
       swapy.onSwapEnd((event) => {
+        
         // remove empty slots and update slot attributes
         const slots = document.querySelectorAll('.slot');
         slots.forEach(slot => {
@@ -91,19 +95,25 @@ export const Dashboard = ({ isSearching, searchTerm, selectedStatus, onDelete, o
           holder.appendChild(slot);
         });
 
-        //update swapy for new changes
+        //update swapy to take into account new or deleted slots
         swapy.update();
       });
 
       setSwapyInstance(swapy);
     }
-  }, [tasks]);
+  };
+
+  useEffect(() => {
+    initializeSwapy();
+  }, [tasks, isSearching, selectedStatus]);
 
   return (
     <div className="dashboard">
+      {/* display TaskSearch component depending on the value of isSearching prop */}
       {isSearching ? (
         <TaskSearch searchTerm={searchTerm} tasks={tasks} onDelete={onDelete} onUpdate={onUpdate} swapyInstance={swapyInstance} />
       ) : (
+        // display TaskLists if the filter is set to 'All tasks' or TaskSearch component if the filter is set to a specific status
         selectedStatus === 'All tasks' ? (
           <>
             <TaskList listType="To do" tasks={tasks.filter(task => task.status === 'To do')} onDelete={onDelete} onUpdate={onUpdate} swapyInstance={swapyInstance} />

@@ -9,6 +9,8 @@ interface TaskDetailsProps {
 }
 
 export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
+
+    //useState to store the task name, description, status due date and error message
     const { taskId } = useParams<{ taskId: string }>();
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
@@ -17,6 +19,7 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    // useEffect to get the task details if the task id is provided
     useEffect(() => {
         if (taskId) {
             const task = getTaskById(taskId);
@@ -29,6 +32,7 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
         }
     }, [taskId]);
 
+    //validate the form and add or update the task
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!taskName || !taskDescription || !taskDueDate) {
@@ -37,6 +41,7 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
         }
         setError('');
 
+        //create a task object
         const task: Task = {
             id: taskId || Date.now().toString(),
             title: taskName,
@@ -45,6 +50,7 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
             date: taskDueDate
         };
 
+        //add or update the task
         if (taskId) {
             updateTask(task);
             if (onTaskUpdate) {
@@ -55,6 +61,7 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
             onTaskAdd(task);
         }
 
+        //navigate to the dashboard
         navigate('/');
     };
 

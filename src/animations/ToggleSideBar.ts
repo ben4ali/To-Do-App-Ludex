@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 
 export const ToggleSideBar = () => {
 
+    // variables
     let open = true; 
     const sidebar = document.querySelector('.sidebar');
     const addTask = document.querySelector('.add-task');
@@ -10,14 +11,19 @@ export const ToggleSideBar = () => {
     const navLinks = document.querySelectorAll('.nav-links');
     const themeSwitch = document.querySelector('.theme-switch');
     
+    // initial setup
     gsap.set(addTask, { rotate: 180 });    
 
+    // function to display or hide sidebar
     return function displaySidebar() {
-        let opacity = 1;
+
+        //check if the window width is less than 1080px for mobile view
         if (window.innerWidth < 1080) {
             gsap.to(navLinks, { opacity: 0, duration: 0.25 });
             gsap.to(sidebar, {backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.1 });
         }
+
+        //hide sidebar
         if (open) {
             gsap.to(sidebar, { width: "0rem", duration: 0.25 });
             gsap.to(sidebarTitle, { opacity: 0, duration: 0.05 });
@@ -25,12 +31,16 @@ export const ToggleSideBar = () => {
             gsap.to(themeSwitch, { opacity: 0, duration: 0.05 });
             gsap.to(addTask, { rotate: 0, duration: 0.1});
             open = false;
+            
         } else {
 
+            //check if the window width is less than 1080px for mobile view
             let width = "15rem";
             if (window.innerWidth < 1080) {
                 width = "90%";
             }
+
+            //display sidebar
             gsap.to(sidebar, { width: width, duration: 0.25, backgroundColor: "var(--secondary-color)" });
             gsap.to(sidebarTitle, { opacity: 1, duration: 0.25 });
             gsap.to(navlinkTitle, { opacity: 1, duration: 0.25 });

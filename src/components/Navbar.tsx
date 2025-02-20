@@ -47,7 +47,7 @@ export const Navbar = ({ onSearchChange, onSortTasks }: NavbarProps) => {
       </div>
       <div className="page-search-options">
         <a id="sortBtn" href="#" onClick={handleSortToggle}>
-          Sort by date ({sortOrder === 'newest' ? 'Newest' : 'Oldest'})
+          Sort
         </a>
         <div className="search-container">
           <span id="search" onClick={toggleSearchInput}>
@@ -57,7 +57,6 @@ export const Navbar = ({ onSearchChange, onSortTasks }: NavbarProps) => {
             id="search-input"
             type="text" 
             placeholder="Search a task" 
-            className='active-input-bar'
             value={searchTerm} 
             onChange={handleSearchChange}
           />

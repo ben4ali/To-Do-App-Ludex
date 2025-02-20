@@ -34,33 +34,49 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
 
     const handleStatusChange = () => {
         setIsChecked(!isChecked);
+
+        //give some time for the checkbox animation to finish
         setTimeout(() => {
+
+            //change task status
             const newStatus = status === "Done" ? "To do" : "Done";
             const updatedTask: Task = { id, title, description, status: newStatus, date };
             updateTask(updatedTask);
+
+            //update task status in the UI
             const targetList = newStatus;
             const taskListsElements = document.querySelectorAll('.task-list');
+
+            //get the target list to place the task
             taskListsElements.forEach(list => {
                 const listHeader = list.firstElementChild?.firstElementChild as HTMLElement;
                 if (listHeader.textContent === targetList) {
+
+                    //get the slot element and place it in the target list
                     const taskElement = document.querySelector(`[data-id="${id}"]`)?.parentElement;
                     if (taskElement) {
-                        console.log(taskElement);
                         taskElement.remove();
                         const taskHolder = list.querySelector('.task-holder');
                         const lastSlot = taskHolder?.querySelector('.slot:last-child');
+
+                        //check if the last slot is empty and place the task before it if it is
                         if (lastSlot && lastSlot.children.length === 0) {
                             taskHolder?.insertBefore(taskElement, lastSlot);
+
+                            // remove empty slots incase user drags an element between two slots
                             const slots = document.querySelectorAll('.slot');
                             slots.forEach(slot => {
                             if (!slot.hasChildNodes()) {
                                 slot.remove();
                             }
                             });
+
+                        //place the task at the end of the list if there are no empty slots
                         } else {
                             taskHolder?.appendChild(taskElement);
                         }
 
+                        //refresh slots after updating the task status
                         if (swapyInstance) {
                             swapyInstance.update();
                         }else{

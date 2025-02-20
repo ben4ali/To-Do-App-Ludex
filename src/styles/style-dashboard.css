@@ -212,39 +212,12 @@
     border-radius: 50px;
 }
 
-.drag-task-item{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    align-items: center;
-    width: 93.5%;
-    padding: 0.5rem;
-    height: 8rem;
-    border-radius: 5px;
-    border: 2px dashed var(--high-highlight-color);
-    margin-top: 0.5rem;
-    transition: var(--default-transition);
-}
-
-.drag-task-item:hover{
-    filter: brightness(var(--brightness));
-}
 
 /*TASK CHECK*/
 
 /* Credits to kyle1dev https://uiverse.io/kyle1dev/afraid-wasp-94 */
 /* From Uiverse.io by kyle1dev */ 
-.checkbox-container {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    background: #f8fafc;
-    border-radius: 16px;
-    box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -2px rgba(0, 0, 0, 0.05);
-}
+
 
 .ios-checkbox {
     --checkbox-size: 28px;

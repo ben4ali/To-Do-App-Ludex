@@ -10,6 +10,8 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
+
+  //keep track of the number of tasks in each status
   const allTasksCount = tasks.length;
   const toDoCount = tasks.filter(task => task.status === 'To do').length;
   const inProgressCount = tasks.filter(task => task.status === 'In progress').length;
