@@ -6,7 +6,8 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { TaskDetails } from './pages/TaskDetails';
 import { useState, useEffect } from 'react';
-import { getTasks, Task, deleteTask, sortTasksByDate } from './utils/localStorage';
+import { getTasks, Task, deleteTask, sortTasksByDate, createMockTasks } from './utils/localStorage';
+
 
 function App() {
   const [isSearching, setIsSearching] = useState(false);
@@ -15,6 +16,9 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
+    // createMockTasks();
+    const tasks = getTasks();
+    setTasks(tasks);
     setTasks(getTasks());
   }, []);
 
@@ -33,10 +37,10 @@ function App() {
   };
 
   const handleTaskDelete = (taskId: string) => {
-    deleteTask(taskId);
-    setTasks(tasks.filter(task => task.id !== taskId));
+      deleteTask(taskId);
+      setTasks(getTasks());
+    
   };
-
   const handleTaskAdd = (newTask: Task) => {
     setTasks([...tasks, newTask]);
   };
@@ -60,8 +64,8 @@ function App() {
           <div className='pages'>
             <Routes>
               <Route path="/" element={<Dashboard isSearching={isSearching} searchTerm={searchTerm} selectedStatus={selectedStatus} onDelete={handleTaskDelete} onUpdate={handleTaskUpdate} tasks={tasks} />} />
-              <Route path="/task-details" element={<TaskDetails onTaskAdd={handleTaskAdd} />} />
-              <Route path="/task-details/:taskId" element={<TaskDetails onTaskAdd={handleTaskAdd} onTaskUpdate={handleTaskUpdate} />} />
+              <Route path="/task-details" element={<TaskDetails onTaskAdd={handleTaskAdd} onTaskDelete={handleTaskDelete}/>} />
+              <Route path="/task-details/:taskId" element={<TaskDetails onTaskAdd={handleTaskAdd} onTaskUpdate={handleTaskUpdate} onTaskDelete={handleTaskDelete} />} />
             </Routes>
           </div>
         </div>

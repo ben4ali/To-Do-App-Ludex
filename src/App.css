@@ -5,6 +5,7 @@
   background-color: var(--background-color);
   color: var(--text-color);
   transition: var(--default-transition);
+  overflow-x: hidden;
 }
 
 

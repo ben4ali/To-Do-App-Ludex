@@ -24,7 +24,6 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
     }, [status]);
 
     const handleDelete = () => {
-        deleteTask(id);
         onDelete(id);
     };
 
@@ -42,8 +41,7 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
             const elementStatus = document.querySelector(`[data-id="${id}"]`)?.parentElement?.querySelector('.task-status p');
             const newStatus = elementStatus?.textContent === "Done" ? "To do" : "Done";
             const updatedTask: Task = { id, title, description, status: newStatus, date };
-            updateTask(updatedTask);
-
+            
             //update task status in the UI
             const targetList = newStatus;
             const taskListsElements = document.querySelectorAll('.task-list');
@@ -63,6 +61,12 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
                         //check if the last slot is empty and place the task before it if it is
                         if (lastSlot && lastSlot.children.length === 0) {
                             taskHolder?.insertBefore(taskElement, lastSlot);
+                            //change task status text
+                            const taskStatus = taskElement.querySelector('.task-status p');
+                            if (taskStatus) {
+                                taskStatus.textContent = newStatus;
+                            }
+                            
 
                             // remove empty slots incase user drags an element between two slots
                             const slots = document.querySelectorAll('.slot');
@@ -101,7 +105,6 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
                         <div onClick={ToggleOptions} className="option-btn">
                             <i className="bi bi-three-dots"></i>
                             <div className="dialogOption">
-                                <span onClick={handleDelete}>Delete</span>
                                 <span onClick={handleEdit}>Edit</span>
                             </div>
                         </div>

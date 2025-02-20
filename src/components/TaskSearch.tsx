@@ -20,6 +20,16 @@ export const TaskSearch = ({ searchTerm, tasks, onDelete, onUpdate, swapyInstanc
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       task.description.toLowerCase().includes(searchTerm.toLowerCase())
     ));
+
+    //get all task items and remove the checkbox
+    const taskItems = document.querySelectorAll('.task-item');
+    taskItems.forEach(item => {
+      const taskFooter = item.querySelector('.task-footer');
+      if (taskFooter) {
+        const checkHolder = taskFooter.querySelector('.completion-status');
+        checkHolder?.remove();
+      }
+    });
   }, [searchTerm, tasks]);
 
   return (

@@ -54,12 +54,12 @@
 }
 
 .task-dates-preview{
-    width: 35%;
     text-align: center;
     background-color: var(--task-highlight-color);
     padding: 0.5rem;
     border-radius: 50px;
     font-size: 20px;
+
 }
 
 .task-form{

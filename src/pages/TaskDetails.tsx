@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addTask, updateTask, getTaskById, Task } from '../utils/localStorage';
+import { addTask, updateTask,deleteTask, getTaskById, Task } from '../utils/localStorage';
 import '../styles/style-task-details.css';
 
 interface TaskDetailsProps {
     onTaskAdd: (newTask: Task) => void;
     onTaskUpdate?: (updatedTask: Task) => void;
+    onTaskDelete?: (taskId: string) => void;
 }
 
-export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
+export const TaskDetails = ({ onTaskAdd, onTaskUpdate, onTaskDelete }: TaskDetailsProps) => {
 
     //useState to store the task name, description, status due date and error message
     const { taskId } = useParams<{ taskId: string }>();
@@ -18,7 +19,13 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
     const [taskDueDate, setTaskDueDate] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
+    const handleDelete = () => {
+        if (taskId) {
+            onTaskDelete && onTaskDelete(taskId);
+          deleteTask(taskId);
+          navigate('/');
+        }
+      };
     // useEffect to get the task details if the task id is provided
     useEffect(() => {
         if (taskId) {
@@ -129,7 +136,20 @@ export const TaskDetails = ({ onTaskAdd, onTaskUpdate }: TaskDetailsProps) => {
                             />
                         </div>
                     </div>
-                    <button type="submit">{taskId ? 'Update Task' : 'Create Task'}</button>
+                    <div className='btnHolder-details'>
+                        <button type="submit">{taskId ? 'Update Task' : 'Create Task'}</button>
+                        {taskId && (
+                        <button 
+                            type="button" 
+                            onClick={handleDelete} 
+                            style={{ backgroundColor: 'var(--error-color)', marginTop: '1rem' }}
+                        >
+                            Delete Task
+                        </button>
+                        )}
+                    </div>
+
+      
                 </form>
             </div>
         </div>
