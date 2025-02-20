@@ -1,4 +1,6 @@
 # My To-Do App
+## Live Demo  
+[Check out the live app here](https://ben4ali-todo.netlify.app/)  
 
 ## Project Overview
 
@@ -34,7 +36,6 @@ Technical test for Ludex Labs.
 8. Documentation.
 
 ## Previews
-
 
 ### Dark and light mode
 ![Preview 1](previews/Preview1.png)
