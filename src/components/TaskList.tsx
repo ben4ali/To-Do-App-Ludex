@@ -1,20 +1,21 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { TaskItem } from './TaskItem';
 import { Task } from '../utils/localStorage';
+import { Swapy } from 'swapy';
 
 interface TaskListProps {
   listType: string;
   tasks: Task[];
-  onDelete: (taskId: string) => void;
-  onUpdate: (updatedTask: Task) => void;
+  swapyInstance: Swapy | null;
 }
 
-export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps) => {
+export const TaskList = ({ listType, tasks, swapyInstance }: TaskListProps) => {
   return (
     <div className="task-list">
       <div className="task-list-header">
         <h4>{listType}</h4>
-        <Link to="/task-details" className='add-option-list'>
+        <Link to="/task-details" className="add-option-list">
           <div className="list-task-add">
             <i className="bi bi-plus"></i>
           </div>
@@ -22,7 +23,7 @@ export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps)
         </Link>
       </div>
 
-      <div className='task-holder'>
+      <div className="task-holder">
         {tasks.map((task, index) => (
           <TaskItem
             key={index}
@@ -31,13 +32,10 @@ export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps)
             description={task.description}
             status={task.status}
             date={task.date}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
+            swapyInstance={swapyInstance}
           />
         ))}
-        <div className='drag-task-item'>
-          <p>Drag your task here...</p>
-        </div>
+        <div className="slot" data-swapy-slot={'drop-place' + listType}></div>
       </div>
     </div>
   );
