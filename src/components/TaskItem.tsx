@@ -34,12 +34,13 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
 
     const handleStatusChange = () => {
         setIsChecked(!isChecked);
-
+ 
         //give some time for the checkbox animation to finish
         setTimeout(() => {
 
             //change task status
-            const newStatus = status === "Done" ? "To do" : "Done";
+            const elementStatus = document.querySelector(`[data-id="${id}"]`)?.parentElement?.querySelector('.task-status p');
+            const newStatus = elementStatus?.textContent === "Done" ? "To do" : "Done";
             const updatedTask: Task = { id, title, description, status: newStatus, date };
             updateTask(updatedTask);
 
