@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ToggleOptions } from "../animations/ToggleOption";
 import { deleteTask, updateTask, Task } from "../utils/localStorage";
 import { useNavigate } from 'react-router-dom';
-
+import { Swapy } from 'swapy';
 
 interface TaskItemProps {
     id: string;
@@ -12,9 +12,10 @@ interface TaskItemProps {
     date: string;
     onDelete: (taskId: string) => void;
     onUpdate: (updatedTask: Task) => void;
+    swapyInstance: Swapy | null;
 }
 
-export const TaskItem = ({ id, title, description, status, date, onDelete, onUpdate }: TaskItemProps) => {
+export const TaskItem = ({ id, title, description, status, date, onDelete, onUpdate, swapyInstance }: TaskItemProps) => {
     const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(status === "Done");
 
@@ -32,29 +33,48 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
     };
 
     const handleStatusChange = () => {
-
         setIsChecked(!isChecked);
         setTimeout(() => {
             const newStatus = status === "Done" ? "To do" : "Done";
             const updatedTask: Task = { id, title, description, status: newStatus, date };
             updateTask(updatedTask);
-            onUpdate(updatedTask);
+            const targetList = newStatus;
+            const taskListsElements = document.querySelectorAll('.task-list');
+            taskListsElements.forEach(list => {
+                const listHeader = list.firstElementChild?.firstElementChild as HTMLElement;
+                if (listHeader.textContent === targetList) {
+                    const taskElement = document.querySelector(`[data-id="${id}"]`)?.parentElement;
+                    if (taskElement) {
+                        console.log(taskElement);
+                        taskElement.remove();
+                        const taskHolder = list.querySelector('.task-holder');
+                        const lastSlot = taskHolder?.querySelector('.slot:last-child');
+                        if (lastSlot && lastSlot.children.length === 0) {
+                            taskHolder?.insertBefore(taskElement, lastSlot);
+                            const slots = document.querySelectorAll('.slot');
+                            slots.forEach(slot => {
+                            if (!slot.hasChildNodes()) {
+                                slot.remove();
+                            }
+                            });
+                        } else {
+                            taskHolder?.appendChild(taskElement);
+                        }
+
+                        if (swapyInstance) {
+                            swapyInstance.update();
+                        }else{
+                            alert("Swapy instance not found");
+                        }
+                    }
+                }
+            });
         }, 650);
-
-        setTimeout(() => {
-            if (status === "Done") {
-                setIsChecked(true);
-            }else{
-                setIsChecked(false);
-            }
-        }, 700);
-
     };
 
-
     return (
-        <div className='slot' data-swapy-slot={"taskItem"+id}>
-            <div className="task-item" data-swapy-item={"taskItem"+id} data-id={id}>
+        <div className='slot' data-swapy-slot={"taskItem" + id}>
+            <div className="task-item" data-swapy-item={"taskItem" + id} data-id={id}>
                 <div className="task-header">
                     <div className="task-info">
                         <h6>{title}</h6>
@@ -104,6 +124,5 @@ export const TaskItem = ({ id, title, description, status, date, onDelete, onUpd
                 </div>
             </div>
         </div>
-
     );
 };
