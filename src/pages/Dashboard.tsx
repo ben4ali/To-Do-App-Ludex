@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { TaskList } from '../components/TaskList';
 import { TaskSearch } from '../components/TaskSearch';
@@ -9,8 +10,6 @@ interface DashboardProps {
   isSearching: boolean;
   searchTerm: string;
   selectedStatus: string;
-  onDelete: (taskId: string) => void;
-  onUpdate: (updatedTask: Task) => void;
   tasks: Task[];
 }
 
@@ -18,8 +17,6 @@ export const Dashboard = ({
   isSearching,
   searchTerm,
   selectedStatus,
-  onDelete,
-  onUpdate,
   tasks,
 }: DashboardProps) => {
   const [swapyInstance, setSwapyInstance] = useState<Swapy | null>(null);
@@ -43,7 +40,7 @@ export const Dashboard = ({
         fromSlot = event.fromSlot;
       });
 
-      swapy.onSwapEnd((event) => {
+      swapy.onSwapEnd(() => {
         // remove empty slots and update slot attributes
         const slots = document.querySelectorAll('.slot');
         slots.forEach((slot) => {
@@ -69,14 +66,14 @@ export const Dashboard = ({
             );
             console.log('Changed new slot attribute to dragged element');
           }
-          let taskItemElement = item as HTMLElement;
+          const taskItemElement = item as HTMLElement;
 
           //update task status
-          let task = tasks.find(
+          const task = tasks.find(
             (task) => task.id === taskItemElement.getAttribute('data-id')
           );
           if (task) {
-            let listType =
+            const listType =
               taskItemElement.parentElement?.parentElement?.parentElement?.querySelector(
                 'h4'
               )?.textContent;
@@ -85,7 +82,7 @@ export const Dashboard = ({
               updateTask(task);
 
               //update checkbox
-              let taskCheckbox = taskItemElement.querySelector(
+              const taskCheckbox = taskItemElement.querySelector(
                 'input[type="checkbox"]'
               ) as HTMLInputElement;
               if (taskCheckbox) {
@@ -93,7 +90,7 @@ export const Dashboard = ({
               }
 
               //update task status
-              let taskStatus = taskItemElement.querySelector(
+              const taskStatus = taskItemElement.querySelector(
                 '.task-status p'
               ) as HTMLElement;
               if (taskStatus) {
@@ -136,8 +133,6 @@ export const Dashboard = ({
         <TaskSearch
           searchTerm={searchTerm}
           tasks={tasks}
-          onDelete={onDelete}
-          onUpdate={onUpdate}
           swapyInstance={swapyInstance}
         />
       ) : // display TaskLists if the filter is set to 'All tasks' or TaskSearch component if the filter is set to a specific status
@@ -146,22 +141,16 @@ export const Dashboard = ({
           <TaskList
             listType="To do"
             tasks={tasks.filter((task) => task.status === 'To do')}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
             swapyInstance={swapyInstance}
           />
           <TaskList
             listType="In progress"
             tasks={tasks.filter((task) => task.status === 'In progress')}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
             swapyInstance={swapyInstance}
           />
           <TaskList
             listType="Done"
             tasks={tasks.filter((task) => task.status === 'Done')}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
             swapyInstance={swapyInstance}
           />
         </>
@@ -169,8 +158,6 @@ export const Dashboard = ({
         <TaskSearch
           searchTerm={searchTerm}
           tasks={tasks.filter((task) => task.status === selectedStatus)}
-          onDelete={onDelete}
-          onUpdate={onUpdate}
           swapyInstance={swapyInstance}
         />
       )}

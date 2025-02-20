@@ -30,7 +30,9 @@ export const TaskDetails = ({
   const navigate = useNavigate();
   const handleDelete = () => {
     if (taskId) {
-      onTaskDelete && onTaskDelete(taskId);
+      if (onTaskDelete) {
+        onTaskDelete(taskId);
+      }
       deleteTask(taskId);
       navigate('/');
     }

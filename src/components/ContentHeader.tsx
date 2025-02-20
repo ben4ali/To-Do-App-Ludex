@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const ContentHeader = () => {
   //get the current date
   const currentDate = new Date().toLocaleDateString('en-US', {

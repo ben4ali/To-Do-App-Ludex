@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ContentHeader } from './components/ContentHeader';
@@ -6,13 +7,7 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './pages/Dashboard';
 import { TaskDetails } from './pages/TaskDetails';
 import { useState, useEffect } from 'react';
-import {
-  getTasks,
-  Task,
-  deleteTask,
-  sortTasksByDate,
-  createMockTasks,
-} from './utils/localStorage';
+import { getTasks, Task, deleteTask } from './utils/localStorage';
 
 function App() {
   const [isSearching, setIsSearching] = useState(false);
@@ -55,21 +50,13 @@ function App() {
     );
   };
 
-  const handleSortTasks = (order: 'newest' | 'oldest') => {
-    const sortedTasks = sortTasksByDate(tasks, order);
-    setTasks([...sortedTasks]);
-  };
-
   return (
     <Router>
       <div className="App">
         <Sidebar onStatusChange={handleStatusChange} tasks={tasks} />
         <div className="content-holder">
           <ContentHeader />
-          <Navbar
-            onSearchChange={handleSearchChange}
-            onSortTasks={handleSortTasks}
-          />
+          <Navbar onSearchChange={handleSearchChange} />
           <div className="pages">
             <Routes>
               <Route
@@ -79,8 +66,6 @@ function App() {
                     isSearching={isSearching}
                     searchTerm={searchTerm}
                     selectedStatus={selectedStatus}
-                    onDelete={handleTaskDelete}
-                    onUpdate={handleTaskUpdate}
                     tasks={tasks}
                   />
                 }

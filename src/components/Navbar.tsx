@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { selectPage } from '../animations/TogglePageLink';
 import { useState } from 'react';
@@ -5,10 +6,9 @@ import { toggleSearchInput } from '../animations/ToggleSearchInput';
 
 interface NavbarProps {
   onSearchChange: (term: string) => void;
-  onSortTasks: (order: 'newest' | 'oldest') => void;
 }
 
-export const Navbar = ({ onSearchChange, onSortTasks }: NavbarProps) => {
+export const Navbar = ({ onSearchChange }: NavbarProps) => {
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');

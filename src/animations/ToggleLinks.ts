@@ -15,12 +15,12 @@ export const DisplayLinks = () => {
   });
 };
 
-export const selectLink = (e: any) => {
+export const selectLink = (e: Event) => {
   const links = document.querySelectorAll('.link');
 
   links.forEach((link) => {
     link.classList.remove('selectedLink');
   });
 
-  e.target.classList.add('selectedLink');
+  (e.target as HTMLElement).classList.add('selectedLink');
 };

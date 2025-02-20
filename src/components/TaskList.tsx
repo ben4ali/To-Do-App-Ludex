@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { TaskItem } from './TaskItem';
 import { Task } from '../utils/localStorage';
@@ -6,18 +7,10 @@ import { Swapy } from 'swapy';
 interface TaskListProps {
   listType: string;
   tasks: Task[];
-  onDelete: (taskId: string) => void;
-  onUpdate: (updatedTask: Task) => void;
   swapyInstance: Swapy | null;
 }
 
-export const TaskList = ({
-  listType,
-  tasks,
-  onDelete,
-  onUpdate,
-  swapyInstance,
-}: TaskListProps) => {
+export const TaskList = ({ listType, tasks, swapyInstance }: TaskListProps) => {
   return (
     <div className="task-list">
       <div className="task-list-header">
@@ -39,8 +32,6 @@ export const TaskList = ({
             description={task.description}
             status={task.status}
             date={task.date}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
             swapyInstance={swapyInstance}
           />
         ))}

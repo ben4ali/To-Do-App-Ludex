@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { ToggleSideBar } from '../animations/ToggleSideBar';
 import { DisplayLinks, selectLink } from '../animations/ToggleLinks';
@@ -70,16 +71,15 @@ export const Sidebar = ({ onStatusChange, tasks }: SidebarProps) => {
     return () => clearInterval(interval);
   }, [tasks]);
 
-  const handleStatusChange = (status: string, e: any) => {
+  const handleStatusChange = (
+    status: string,
+    e: React.MouseEvent<HTMLElement>
+  ) => {
     onStatusChange(status);
-    selectLink(e);
+    selectLink(e as unknown as Event);
   };
 
   const [isOpen, setIsOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
-  };
 
   return (
     <div className="sidebar">

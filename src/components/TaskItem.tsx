@@ -1,6 +1,6 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { ToggleOptions } from '../animations/ToggleOption';
-import { deleteTask, updateTask, Task } from '../utils/localStorage';
 import { useNavigate } from 'react-router-dom';
 import { Swapy } from 'swapy';
 
@@ -10,8 +10,6 @@ interface TaskItemProps {
   description: string;
   status: string;
   date: string;
-  onDelete: (taskId: string) => void;
-  onUpdate: (updatedTask: Task) => void;
   swapyInstance: Swapy | null;
 }
 
@@ -21,8 +19,6 @@ export const TaskItem = ({
   description,
   status,
   date,
-  onDelete,
-  onUpdate,
   swapyInstance,
 }: TaskItemProps) => {
   const navigate = useNavigate();
@@ -31,10 +27,6 @@ export const TaskItem = ({
   useEffect(() => {
     setIsChecked(status === 'Done');
   }, [status]);
-
-  const handleDelete = () => {
-    onDelete(id);
-  };
 
   const handleEdit = () => {
     navigate(`/task-details/${id}`);
@@ -51,13 +43,6 @@ export const TaskItem = ({
         ?.parentElement?.querySelector('.task-status p');
       const newStatus =
         elementStatus?.textContent === 'Done' ? 'To do' : 'Done';
-      const updatedTask: Task = {
-        id,
-        title,
-        description,
-        status: newStatus,
-        date,
-      };
 
       //update task status in the UI
       const targetList = newStatus;
@@ -148,9 +133,9 @@ export const TaskItem = ({
                 <div className="checkbox-bg"></div>
                 <svg fill="none" viewBox="0 0 24 24" className="checkbox-icon">
                   <path
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    stroke-width="3"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="3"
                     stroke="currentColor"
                     d="M4 12L10 18L20 6"
                     className="check-path"
