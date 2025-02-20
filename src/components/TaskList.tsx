@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { TaskItem } from './TaskItem';
 import { Task } from '../utils/localStorage';
+import { createSwapy } from 'swapy';
+import { useEffect } from 'react';
 
 interface TaskListProps {
   listType: string;
@@ -10,6 +12,18 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps) => {
+  useEffect(() => {
+    const containers = document.querySelectorAll('.task-list');
+    containers.forEach(container => {
+      createSwapy(container as HTMLElement, { 
+        animation: 'dynamic',
+        enabled: true,
+        swapMode: 'hover',
+        autoScrollOnDrag: true,
+      });
+    });
+  }, []);
+
   return (
     <div className="task-list">
       <div className="task-list-header">
@@ -24,7 +38,7 @@ export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps)
 
       <div className='task-holder'>
         {tasks.map((task, index) => (
-          <TaskItem
+          <TaskItem 
             key={index}
             id={task.id}
             title={task.title}
@@ -35,10 +49,10 @@ export const TaskList = ({ listType, tasks, onDelete, onUpdate }: TaskListProps)
             onUpdate={onUpdate}
           />
         ))}
-        <div className='drag-task-item'>
+        {/* <div className='drag-task-item ' data-swapy-slot={"drop-place"}>
           <p>Drag your task here...</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
-};
+}
