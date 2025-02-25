@@ -5,10 +5,7 @@
 ## Project Overview
 
 **What is it:**  
-A to-do app.
-
-**Purpose:**  
-Technical test for Ludex Labs.
+A to-do app
 
 **Features:**  
 - Create, Read, Update, and Delete tasks using local storage  
